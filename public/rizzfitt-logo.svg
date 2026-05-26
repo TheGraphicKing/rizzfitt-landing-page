@@ -1,0 +1,10 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#101010"/>
+  <g transform="translate(88 342)">
+    <circle cx="18" cy="18" r="18" fill="#FF6A00"/>
+    <path d="M70 0H104L48 58L35 46L70 0Z" fill="#FF6A00"/>
+    <path d="M0 72L52 20L77 45L30 122H0V72Z" fill="#FF6A00"/>
+    <path d="M39 86L63 60L103 122H66L39 86Z" fill="#FF6A00"/>
+  </g>
+  <text x="220" y="452" fill="white" font-family="Inter, Arial, sans-serif" font-size="112" font-weight="700" letter-spacing="4">Rizzfitt</text>
+</svg>
