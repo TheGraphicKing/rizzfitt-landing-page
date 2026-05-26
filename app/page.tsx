@@ -82,11 +82,11 @@ const foodImages = [
   { src: "/food/food-03.jpeg", title: "Mango smoothie bowl" },
   { src: "/food/food-04.jpeg", title: "Chia pudding cups" },
   { src: "/food/food-05.jpeg", title: "Chocolate granola bowl" },
-  { src: "/food/food-06.jpeg", title: "Mini pancake tray" },
+  { src: "/food/food-06.jpeg", title: "Granola cups" },
   { src: "/food/food-07.jpeg", title: "Cacao fruit bowl" },
-  { src: "/food/food-08.jpeg", title: "Avocado smoothie" },
+  { src: "/food/food-08.jpeg", title: "Mini pancakes" },
   { src: "/food/food-09.jpeg", title: "Green chia bowl" },
-  { src: "/food/food-10.jpeg", title: "Granola cups" },
+  { src: "/food/food-10.jpeg", title: "Avocado smoothie" },
 ];
 
 const venueImages = [
