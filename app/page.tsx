@@ -14,6 +14,7 @@ import { Differentiator } from "@/components/home/Differentiator";
 import { ProofStats } from "@/components/home/ProofStats";
 import { ProductsPreview } from "@/components/home/ProductsPreview";
 import { Testimonials } from "@/components/testimonials/Testimonials";
+import { IntegrationsStrip } from "@/components/IntegrationsStrip";
 
 /**
  * RizzFitt home. Assembled entirely from foundation primitives in the spec'd
@@ -34,6 +35,7 @@ export default function HomePage() {
       <Differentiator />
       <ProofStats />
       <ProductsPreview />
+      <IntegrationsStrip mode="live" />
       <Testimonials tag="home" mode="live" heading="What organisers say." />
 
       {/* Partners teaser */}

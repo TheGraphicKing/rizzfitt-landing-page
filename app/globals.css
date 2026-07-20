@@ -773,6 +773,13 @@ textarea.reach-input{resize:vertical;line-height:1.5;}
   background:var(--surface-2);color:var(--text);box-shadow:inset 0 0 0 1px var(--border);cursor:pointer;}
 .testi-arrow:hover{color:var(--accent);}
 
+/* Integrations "works with" strip */
+.integrations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);}
+.integration-card{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-5);
+  border-radius:var(--r-lg);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--border);}
+.integration-name{font-size:1.25rem;font-weight:700;color:var(--accent);}
+@media (max-width:640px){.integrations-grid{grid-template-columns:1fr;}}
+
 /* Product screenshot / demo-video slot */
 .product-media{position:relative;width:100%;border-radius:var(--r-lg);overflow:hidden;
   background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--border);}
