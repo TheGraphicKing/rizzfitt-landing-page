@@ -10,57 +10,70 @@ import {
   Users,
   Footprints,
   Handshake,
+  Calendar,
+  FileText,
+  Tag as TagIcon,
+  MapPin,
   type LucideIcon,
 } from "lucide-react";
-import { products } from "@/data";
 import { cn } from "@/lib/cn";
 import { Logo } from "./Logo";
 
-/** Lucide icon lookup for product entries (design system PART 6.2). */
-const PRODUCT_ICONS: Record<string, LucideIcon> = {
-  Trophy,
-  Users,
-  Footprints,
-  Handshake,
+type MenuItem = {
+  label: string;
+  href: string;
+  desc: string;
+  icon: LucideIcon;
+  soon?: boolean;
 };
 
-const PRIMARY_LINKS = [
-  { label: "Events", href: "/events" },
-  { label: "Community", href: "/community" },
-  { label: "Case studies", href: "/case-studies" },
-  { label: "About", href: "/about" },
-] as const;
+/** Two audience tracks. Hrefs are explicit (not slug-derived) so they always
+ *  resolve to the real routes. */
+const PLAY_MENU: MenuItem[] = [
+  { label: "Events", href: "/events", desc: "Every tournament, league & mixer", icon: Calendar },
+  { label: "Social Mixers", href: "/mixers", desc: "Beginner-friendly pickleball mornings", icon: Users },
+  { label: "RizzFitt Connect", href: "/products/connect", desc: "Find your next match", icon: Handshake, soon: true },
+];
+
+const ORG_MENU: MenuItem[] = [
+  { label: "Tournament OS", href: "/products/tournament-os", desc: "Run a tournament like a broadcast", icon: Trophy },
+  { label: "Community OS", href: "/products/community-os", desc: "Turn players into a community", icon: Users },
+  { label: "Run Club OS", href: "/products/run-clubs", desc: "Every Saturday, organised", icon: Footprints },
+  { label: "Case studies", href: "/case-studies", desc: "Real events, real numbers", icon: FileText },
+  { label: "Pricing", href: "/pricing", desc: "Simple, event-based pricing", icon: TagIcon },
+  { label: "Book a demo", href: "/book-a-demo", desc: "See it run, end to end", icon: Calendar },
+];
+
+type MenuKey = "play" | "org";
 
 /**
- * Sticky, mode-aware top navigation.
+ * Sticky, mode-aware top navigation split into two audience tracks: **Play**
+ * (players → events, mixers, Connect) and **For Organisers** (the software +
+ * case studies, pricing, demo), plus About and the two CTAs.
  *
- * - Colors follow the page mode via `--nav-text` / `--surface`; gains a solid
- *   background + hairline once scrolled (`.nav--scrolled`).
- * - Products dropdown is keyboard-operable (button with `aria-expanded`, closes
- *   on Escape / outside click / blur).
- * - Below the `lg` breakpoint it collapses to a hamburger that opens a full
- *   overlay menu (Escape to close, body scroll locked while open).
- * - Visible focus rings come from the global `:focus-visible` token.
+ * Accessibility:
+ * - Each track is a `button` with `aria-haspopup`/`aria-expanded`/`aria-controls`.
+ * - Opens on hover (with close-intent delay) AND on click / ArrowDown / Enter.
+ * - Escape closes and returns focus to the trigger; outside-click and focus-out
+ *   also close. On touch/keyboard there is no dead hover gap.
+ * - Below `lg` it collapses to a hamburger overlay with the same two tracks as
+ *   expandable (`aria-expanded`) sections.
  */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const productsRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Hover-intent: open immediately, close after a short delay so moving the
-  // cursor from the trigger to the menu doesn't dismiss it.
-  const openMenu = () => {
+  const open = (key: MenuKey) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setProductsOpen(true);
+    setOpenMenu(key);
   };
-  const closeMenuSoon = () => {
+  const closeSoon = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setProductsOpen(false), 180);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 180);
   };
 
-  // Solid background after a little scroll.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
@@ -68,23 +81,11 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the dropdown on outside click.
-  useEffect(() => {
-    if (!productsOpen) return;
-    const onClick = (e: MouseEvent) => {
-      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
-        setProductsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [productsOpen]);
-
-  // Escape closes whatever is open; lock body scroll for the mobile overlay.
+  // Escape closes whatever is open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setProductsOpen(false);
+        setOpenMenu(null);
         setMobileOpen(false);
       }
     };
@@ -92,6 +93,7 @@ export function Nav() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  // Lock body scroll while the mobile overlay is open.
   useEffect(() => {
     document.documentElement.classList.toggle("lenis-stopped", mobileOpen);
     return () => document.documentElement.classList.remove("lenis-stopped");
@@ -104,133 +106,33 @@ export function Nav() {
       </Link>
 
       {/* Desktop links */}
-      <div
-        className="nav-links"
-        style={{ display: "flex", alignItems: "center", gap: "var(--space-5)" }}
-      >
-        {/* Products dropdown */}
-        <div
-          ref={productsRef}
-          style={{ position: "relative" }}
-          onMouseEnter={openMenu}
-          onMouseLeave={closeMenuSoon}
-        >
-          <button
-            type="button"
-            aria-haspopup="true"
-            aria-expanded={productsOpen}
-            aria-controls="products-menu"
-            onClick={() => setProductsOpen((v) => !v)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 4,
-              color: "var(--nav-text)",
-              fontSize: "var(--fs-small)",
-            }}
-          >
-            Products
-            <ChevronDown
-              size={16}
-              style={{
-                transition: "transform var(--t-fast) var(--ease)",
-                transform: productsOpen ? "rotate(180deg)" : "none",
-              }}
-            />
-          </button>
+      <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: "var(--space-5)" }}>
+        <NavDropdown
+          id="play-menu"
+          label="Play"
+          items={PLAY_MENU}
+          isOpen={openMenu === "play"}
+          onOpen={() => open("play")}
+          onCloseSoon={closeSoon}
+          onToggle={() => setOpenMenu((v) => (v === "play" ? null : "play"))}
+          onItemClick={() => setOpenMenu(null)}
+        />
+        <NavDropdown
+          id="organisers-menu"
+          label="For Organisers"
+          items={ORG_MENU}
+          isOpen={openMenu === "org"}
+          onOpen={() => open("org")}
+          onCloseSoon={closeSoon}
+          onToggle={() => setOpenMenu((v) => (v === "org" ? null : "org"))}
+          onItemClick={() => setOpenMenu(null)}
+        />
 
-          {productsOpen ? (
-            <div
-              id="products-menu"
-              role="menu"
-              aria-label="Products"
-              onMouseEnter={openMenu}
-              onMouseLeave={closeMenuSoon}
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                width: 320,
-                // Transparent bridge so the cursor can travel from the trigger
-                // into the panel without crossing a dead gap (which closed it).
-                paddingTop: "10px",
-                zIndex: "var(--z-nav)" as unknown as number,
-              }}
-            >
-            <div
-              style={{
-                padding: "var(--space-3)",
-                borderRadius: "var(--r-lg)",
-                background: "var(--surface-2)",
-                boxShadow: "inset 0 0 0 1px var(--border), var(--shadow-pop)",
-                display: "grid",
-                gap: 4,
-              }}
-            >
-              {products.map((p) => {
-                const Icon = PRODUCT_ICONS[p.icon] ?? Trophy;
-                const teaser = p.status === "teaser";
-                return (
-                  <Link
-                    key={p.id}
-                    href={teaser ? "/connect" : `/products/${p.slug}`}
-                    role="menuitem"
-                    onClick={() => setProductsOpen(false)}
-                    style={{
-                      display: "flex",
-                      gap: "var(--space-3)",
-                      padding: "var(--space-3)",
-                      borderRadius: "var(--r-md)",
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{
-                        display: "grid",
-                        placeItems: "center",
-                        width: 36,
-                        height: 36,
-                        borderRadius: "var(--r-sm)",
-                        background: "var(--accent-soft)",
-                        color: "var(--accent)",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Icon size={20} />
-                    </span>
-                    <span style={{ display: "grid", gap: 2 }}>
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          display: "inline-flex",
-                          gap: 8,
-                          alignItems: "center",
-                        }}
-                      >
-                        {p.name}
-                        {teaser ? (
-                          <span className="tag" style={{ padding: "2px 8px" }}>
-                            Soon
-                          </span>
-                        ) : null}
-                      </span>
-                      <span className="small muted">{p.tagline}</span>
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-            </div>
-          ) : null}
-        </div>
+        <Link href="/about">About</Link>
 
-        {PRIMARY_LINKS.map((l) => (
-          <Link key={l.href} href={l.href}>
-            {l.label}
-          </Link>
-        ))}
-
+        <Link href="/events" className="btn btn-ghost" style={{ padding: "10px 18px" }}>
+          Find events near you
+        </Link>
         <Link href="/book-a-demo" className="btn btn-primary" style={{ padding: "10px 20px" }}>
           Book a demo
         </Link>
@@ -263,7 +165,8 @@ export function Nav() {
             padding: "var(--space-5) var(--gutter)",
             display: "flex",
             flexDirection: "column",
-            gap: "var(--space-6)",
+            gap: "var(--space-5)",
+            overflowY: "auto",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -273,40 +176,248 @@ export function Nav() {
             </button>
           </div>
 
-          <div className="stack" style={{ gap: "var(--space-4)" }}>
-            <span className="eyebrow">Products</span>
-            {products.map((p) => (
-              <Link
-                key={p.id}
-                href={p.status === "teaser" ? "/connect" : `/products/${p.slug}`}
-                onClick={() => setMobileOpen(false)}
-                className="h3"
-              >
-                {p.name}
-              </Link>
-            ))}
-          </div>
-
+          <MobileSection title="Play" items={PLAY_MENU} onNavigate={() => setMobileOpen(false)} />
+          <hr className="court-rule" />
+          <MobileSection title="For Organisers" items={ORG_MENU} onNavigate={() => setMobileOpen(false)} />
           <hr className="court-rule" />
 
-          <div className="stack" style={{ gap: "var(--space-4)" }}>
-            {PRIMARY_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="h3">
-                {l.label}
-              </Link>
-            ))}
-          </div>
-
-          <Link
-            href="/book-a-demo"
-            className="btn btn-primary"
-            onClick={() => setMobileOpen(false)}
-            style={{ justifyContent: "center" }}
-          >
-            Book a demo
+          <Link href="/about" onClick={() => setMobileOpen(false)} className="h3">
+            About
           </Link>
+
+          <div className="stack" style={{ gap: "var(--space-3)", marginTop: "auto" }}>
+            <Link
+              href="/events"
+              className="btn btn-ghost"
+              onClick={() => setMobileOpen(false)}
+              style={{ justifyContent: "center" }}
+            >
+              <MapPin size={18} /> Find events near you
+            </Link>
+            <Link
+              href="/book-a-demo"
+              className="btn btn-primary"
+              onClick={() => setMobileOpen(false)}
+              style={{ justifyContent: "center" }}
+            >
+              Book a demo
+            </Link>
+          </div>
         </div>
       ) : null}
     </nav>
+  );
+}
+
+/* ── Desktop dropdown ─────────────────────────────────────────────────── */
+function NavDropdown({
+  id,
+  label,
+  items,
+  isOpen,
+  onOpen,
+  onCloseSoon,
+  onToggle,
+  onItemClick,
+}: {
+  id: string;
+  label: string;
+  items: MenuItem[];
+  isOpen: boolean;
+  onOpen: () => void;
+  onCloseSoon: () => void;
+  onToggle: () => void;
+  onItemClick: () => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const firstItemRef = useRef<HTMLAnchorElement>(null);
+
+  // When opened via keyboard, move focus into the panel.
+  const handleTriggerKey = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      onOpen();
+      requestAnimationFrame(() => firstItemRef.current?.focus());
+    }
+  };
+
+  // Close if focus leaves the whole group (keyboard tab-out).
+  const handleBlur = (e: React.FocusEvent) => {
+    if (!containerRef.current?.contains(e.relatedTarget as Node)) onCloseSoon();
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      style={{ position: "relative" }}
+      onMouseEnter={onOpen}
+      onMouseLeave={onCloseSoon}
+      onBlur={handleBlur}
+    >
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-controls={id}
+        onClick={onToggle}
+        onKeyDown={handleTriggerKey}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 4,
+          color: "var(--nav-text)",
+          fontSize: "var(--fs-small)",
+        }}
+      >
+        {label}
+        <ChevronDown
+          size={16}
+          style={{
+            transition: "transform var(--t-fast) var(--ease)",
+            transform: isOpen ? "rotate(180deg)" : "none",
+          }}
+        />
+      </button>
+
+      {isOpen ? (
+        <div
+          id={id}
+          role="menu"
+          aria-label={label}
+          onMouseEnter={onOpen}
+          onMouseLeave={onCloseSoon}
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            width: 320,
+            // Transparent bridge so the cursor can cross from trigger to panel.
+            paddingTop: "10px",
+            zIndex: "var(--z-nav)" as unknown as number,
+          }}
+        >
+          <div
+            style={{
+              padding: "var(--space-3)",
+              borderRadius: "var(--r-lg)",
+              background: "var(--surface-2)",
+              boxShadow: "inset 0 0 0 1px var(--border), var(--shadow-pop)",
+              display: "grid",
+              gap: 4,
+            }}
+          >
+            {items.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href + item.label}
+                  href={item.href}
+                  role="menuitem"
+                  ref={i === 0 ? firstItemRef : undefined}
+                  onClick={onItemClick}
+                  style={{
+                    display: "flex",
+                    gap: "var(--space-3)",
+                    padding: "var(--space-3)",
+                    borderRadius: "var(--r-md)",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      display: "grid",
+                      placeItems: "center",
+                      width: 36,
+                      height: 36,
+                      borderRadius: "var(--r-sm)",
+                      background: "var(--accent-soft)",
+                      color: "var(--accent)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon size={20} />
+                  </span>
+                  <span style={{ display: "grid", gap: 2 }}>
+                    <span style={{ fontWeight: 600, display: "inline-flex", gap: 8, alignItems: "center" }}>
+                      {item.label}
+                      {item.soon ? (
+                        <span className="tag" style={{ padding: "2px 8px" }}>
+                          Soon
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="small muted">{item.desc}</span>
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+/* ── Mobile expandable section ────────────────────────────────────────── */
+function MobileSection({
+  title,
+  items,
+  onNavigate,
+}: {
+  title: string;
+  items: MenuItem[];
+  onNavigate: () => void;
+}) {
+  const [expanded, setExpanded] = useState(true);
+  const regionId = `mobile-${title.replace(/\s+/g, "-").toLowerCase()}`;
+
+  return (
+    <div className="stack" style={{ gap: "var(--space-3)" }}>
+      <button
+        type="button"
+        aria-expanded={expanded}
+        aria-controls={regionId}
+        onClick={() => setExpanded((v) => !v)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          color: "var(--text)",
+        }}
+      >
+        <span className="eyebrow">{title}</span>
+        <ChevronDown
+          size={18}
+          style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform var(--t-fast) var(--ease)" }}
+        />
+      </button>
+      {expanded ? (
+        <div id={regionId} className="stack" style={{ gap: "var(--space-4)", paddingLeft: 4 }}>
+          {items.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href + item.label}
+                href={item.href}
+                onClick={onNavigate}
+                className="cluster"
+                style={{ gap: "var(--space-3)", alignItems: "center" }}
+              >
+                <Icon size={20} style={{ color: "var(--accent)", flexShrink: 0 }} aria-hidden />
+                <span className="h3" style={{ fontSize: "1.25rem" }}>
+                  {item.label}
+                </span>
+                {item.soon ? (
+                  <span className="tag" style={{ padding: "2px 8px" }}>
+                    Soon
+                  </span>
+                ) : null}
+              </Link>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }

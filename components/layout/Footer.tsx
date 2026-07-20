@@ -7,30 +7,23 @@ import { CONTACT, whatsappLink } from "@/lib/contact";
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Products",
+    title: "Play",
+    links: [
+      { label: "All events", href: "/events" },
+      { label: "Social mixers", href: "/mixers" },
+      { label: "RizzFitt Connect", href: "/products/connect" },
+      { label: "Find events near you", href: "/events" },
+    ],
+  },
+  {
+    title: "For organisers",
     links: [
       { label: "Tournament OS", href: "/products/tournament-os" },
       { label: "Community OS", href: "/products/community-os" },
       { label: "Run Club OS", href: "/products/run-clubs" },
-      { label: "RizzFitt Connect", href: "/products/connect" },
-    ],
-  },
-  {
-    title: "Events",
-    links: [
-      { label: "All events", href: "/events" },
-      { label: "Social mixers", href: "/community" },
-      { label: "List your tournament", href: "/list-your-tournament" },
       { label: "Case studies", href: "/case-studies" },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { label: "Social mixers", href: "/community" },
-      { label: "Run clubs", href: "/products/run-clubs" },
-      { label: "About", href: "/about" },
-      { label: "FAQ", href: "/faq" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Book a demo", href: "/book-a-demo" },
     ],
   },
   {
@@ -39,7 +32,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "Partner with us", href: "/partner-with-us" },
       { label: "Sponsor an event", href: "/partner-with-us" },
       { label: "Become a venue", href: "/partner-with-us" },
-      { label: "Creators", href: "/partner-with-us" },
+      { label: "List your tournament", href: "/list-your-tournament" },
     ],
   },
   {
