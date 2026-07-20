@@ -14,6 +14,7 @@ import { Section, Tag, Button, Marquee } from "@/components/primitives";
 import { Collage as MasonryCollage } from "@/components/Collage";
 import { galleryItems, communityGalleryItems } from "@/lib/gallery";
 import { getEventContent } from "@/data/event-content";
+import { TOURNAMENT_APP } from "@/lib/events";
 import { formatEventDate, formatPrice } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import type { EventModule, RizzEvent } from "@/lib/types";
@@ -226,7 +227,15 @@ function RegisterFlow({ event }: ModuleProps) {
             </span>
           </div>
           {hasEarly ? <span className="status-pill status-upcoming">Early bird</span> : null}
-          <Button href={event.registrationUrl ?? "#register"} variant="primary" iconLeft={<CreditCard size={16} />}>
+          {/* Live registration + payment happen on the tournament app. Uses the
+              event's real tournament URL when known, else the app home.
+              TODO(content): add each event's externalUrl in data/events.json. */}
+          <Button
+            href={event.externalUrl ?? TOURNAMENT_APP}
+            variant="primary"
+            external
+            iconLeft={<CreditCard size={16} />}
+          >
             Reserve via Razorpay
           </Button>
           <span className="small muted" style={{ display: "flex", alignItems: "center", gap: 6 }}>

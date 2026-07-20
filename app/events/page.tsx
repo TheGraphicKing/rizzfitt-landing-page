@@ -14,6 +14,10 @@ export const metadata: Metadata = {
 /**
  * Events directory (live). Header + chip filters + animated grid reading from
  * data/events.json, closed by the organiser CTA band.
+ *
+ * TODO(content): events currently come from a static data/events.json. Ideally
+ * this is fetched live from tournament.rizzfitt.com so new events appear here
+ * automatically and the homepage counts stay current without a redeploy.
  */
 export default async function EventsPage({
   searchParams,

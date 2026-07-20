@@ -53,7 +53,7 @@ export function getProduct(slug: string): Product | undefined {
 }
 
 /**
- * The "events run" headline number. Backed by the real total (47) but rendered
- * as "45+" on the homepage — an honest floor.
+ * The "events run" headline number — the real total from the dataset (47).
+ * Surfaced verbatim on the homepage/hero via lib/stats.ts (no rounding down).
  */
 export const EVENTS_RUN_COUNT = eventsFile._meta.counts.total;
