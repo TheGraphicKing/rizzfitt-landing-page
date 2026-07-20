@@ -1,10 +1,25 @@
 import { Section, Tag, StatBand } from "@/components/primitives";
+import type { Stat } from "@/components/primitives/StatBand";
+import { MANUAL_STATS } from "@/lib/stats";
 import { AttendanceGraph } from "./AttendanceGraph";
 
 /**
  * Engagement / retention (os). The flywheel narrative paired with an animated
- * attendance graph and a count-up stat band. Figures are illustrative.
+ * attendance graph. The stat band only renders once REAL figures are supplied
+ * in `MANUAL_STATS` — nothing fabricated ships, and no stat ever reads "0".
  */
+const RETENTION_STATS: Stat[] = [
+  ...(MANUAL_STATS.avgShowUpRatePct != null
+    ? [{ value: MANUAL_STATS.avgShowUpRatePct, suffix: "%", label: "Avg show-up rate" } as Stat]
+    : []),
+  ...(MANUAL_STATS.retentionLiftPct != null
+    ? [{ value: MANUAL_STATS.retentionLiftPct, prefix: "+", suffix: "%", label: "Retention lift" } as Stat]
+    : []),
+  ...(MANUAL_STATS.moreEventsMultiple != null
+    ? [{ value: MANUAL_STATS.moreEventsMultiple, suffix: "×", label: "More events run" } as Stat]
+    : []),
+];
+
 export function EngagementStats() {
   return (
     <Section mode="os">
@@ -21,15 +36,13 @@ export function EngagementStats() {
         <AttendanceGraph />
       </div>
 
-      <StatBand
-        className="engage-stats"
-        stats={[
-          { value: 92, suffix: "%", label: "Avg show-up rate" },
-          { value: 38, prefix: "+", suffix: "%", label: "Retention lift" },
-          { value: 3, suffix: "×", label: "More events run" },
-          { value: 0, label: "Spreadsheets" },
-        ]}
-      />
+      {RETENTION_STATS.length ? (
+        <StatBand className="engage-stats" stats={RETENTION_STATS} />
+      ) : (
+        // TODO(content): supply avgShowUpRatePct / retentionLiftPct /
+        // moreEventsMultiple in lib/stats.ts to surface this metric band.
+        null
+      )}
     </Section>
   );
 }

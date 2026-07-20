@@ -55,7 +55,7 @@ export default function PressPage() {
             social mixers, RizzFitt gives organisers one connected system —
             website, registrations, payments, live scoring and communication —
             so they can focus on the game and the people. RizzFitt has powered
-            45+ events across 15+ cities and four sports, including an
+            47 events across 10 cities and five sports, including an
             international open in Singapore.
           </p>
         </div>

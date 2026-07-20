@@ -1,6 +1,7 @@
 import { Section, Tag, Button, CTABand } from "@/components/primitives";
 import { MiniFAQ } from "@/components/MiniFAQ";
 import { whatsappLink } from "@/lib/contact";
+import { derivedStats } from "@/lib/stats";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustMarquee } from "@/components/home/TrustMarquee";
 import { AudienceRouter } from "@/components/home/AudienceRouter";
@@ -18,7 +19,7 @@ import { ProductsPreview } from "@/components/home/ProductsPreview";
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      <HeroSection eventsCount={derivedStats.events} />
       <TrustMarquee />
       <AudienceRouter />
       <FlowDiagram />

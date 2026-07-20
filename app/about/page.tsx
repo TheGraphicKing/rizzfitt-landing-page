@@ -83,7 +83,7 @@ export default function AboutPage() {
           <span className="small muted">Trusted by</span>
           <span className="badge-assoc">TNPA</span>
           <span className="badge-assoc">Indian Pickleball Association</span>
-          <span className="small muted">and 45+ organisers.</span>
+          <span className="small muted">across 47 events.</span>
         </div>
       </Section>
 

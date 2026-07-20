@@ -24,7 +24,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
     cta: { label: "Book a demo", href: "/book-a-demo" },
     items: [
       { q: "What is RizzFitt?", a: "RizzFitt is the operating system for sports communities and events — software that runs tournaments, leagues, clubs and mixers end to end, from registrations and payments to live scoring and communication." },
-      { q: "Which sports and cities do you cover?", a: "We've run events across pickleball, badminton, cricket and football, in 15+ cities from Chennai to Singapore — and we're adding more. Tell us where you are." },
+      { q: "Which sports and cities do you cover?", a: "We've run events across pickleball, badminton, cricket and football, in 10 cities from Chennai to Singapore — and we're adding more. Tell us where you are." },
       { q: "Is this software or a service?", a: "Both — software you can run yourself, with our team behind it when you'd rather have the event handled for you." },
     ],
   },

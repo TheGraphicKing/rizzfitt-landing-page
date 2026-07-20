@@ -11,7 +11,7 @@ const MILESTONES = [
   { k: "03", title: "First state association", sub: "Tamil Nadu Pickleball Association on board." },
   { k: "04", title: "First national", sub: "The Indian Pickleball Nationals, fully live-scored." },
   { k: "05", title: "First international", sub: "KLTR Open, Singapore — across the border." },
-  { k: "06", title: "45+ events", sub: "Across 15+ cities and four sports, and counting." },
+  { k: "06", title: "47 events", sub: "Across 10 cities and five sports, and counting." },
   { k: "07", title: "What's next", sub: "RizzFitt Connect, and the rooms we haven't run yet." },
 ];
 

@@ -3,8 +3,19 @@ import { Section, Tag, StatBand, CTABand, Card } from "@/components/primitives";
 import { FormLauncher } from "@/components/forms/FormLauncher";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { AudienceField } from "@/components/illustrations/AudienceField";
+import type { Stat } from "@/components/primitives/StatBand";
 import { getFaqGroup } from "@/data/faq";
+import { derivedStats, MANUAL_STATS } from "@/lib/stats";
 import type { FormId } from "@/lib/forms";
+
+const PARTNER_STATS: Stat[] = [
+  { value: derivedStats.events, suffix: "+", label: "Events" },
+  { value: derivedStats.cities, label: "Cities" },
+  { value: derivedStats.sports, label: "Sports" },
+  ...(MANUAL_STATS.playersReached != null
+    ? [{ value: MANUAL_STATS.playersReached, suffix: "+", label: "Players reached" } as Stat]
+    : []),
+];
 
 export const metadata: Metadata = {
   title: "Partner with us — there's a place for you on the court",
@@ -57,7 +68,7 @@ const PATHS: { eyebrow: string; title: string; pitch: string; form: FormId; cta:
 
 const REASONS = [
   { title: "High-intent audiences", line: "Engaged, urban, health-minded players — exactly who many brands want to reach." },
-  { title: "Multi-city footprint", line: "Events across 15+ cities and counting, from a Salem league to a Singapore open." },
+  { title: "Multi-city footprint", line: "Events across 10 cities and counting, from a Salem league to a Singapore open." },
   { title: "Full operational support", line: "You show up; we run it. Decks, placement and reporting handled end to end." },
 ];
 
@@ -112,14 +123,7 @@ export default function PartnerWithUsPage() {
           </div>
           <AudienceField caption="Every dot is a player in the room." />
         </div>
-        <StatBand
-          stats={[
-            { value: 45, suffix: "+", label: "Events" },
-            { value: 15, suffix: "+", label: "Cities" },
-            { value: 8000, suffix: "+", label: "Players reached" },
-            { value: 4, label: "Sports" },
-          ]}
-        />
+        <StatBand stats={PARTNER_STATS} />
         <div className="home-products" style={{ marginTop: "var(--space-8)" }}>
           {REASONS.map((r) => (
             <Card key={r.title}>

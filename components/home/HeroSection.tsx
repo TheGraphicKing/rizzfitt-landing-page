@@ -10,10 +10,13 @@ const HEADLINE = "Run the game. We run everything else.";
 
 /**
  * Home hero (os / dark). Staggered headline words, a floating paddle+ball 3D
- * scene with a "45+ events powered" stat overlay, and the two primary CTAs.
+ * scene with a live "events powered" stat overlay, and the two primary CTAs.
  * Reduced motion: words appear without travel; the 3D swaps to the static still.
+ *
+ * `eventsCount` is passed from the server so the real number is derived from the
+ * events dataset without bundling the JSON into this client component.
  */
-export function HeroSection() {
+export function HeroSection({ eventsCount }: { eventsCount: number }) {
   const reduced = useReducedMotion() ?? false;
   const words = HEADLINE.split(" ");
 
@@ -79,9 +82,9 @@ export function HeroSection() {
             Move your cursor · click to serve
           </span>
 
-          <div className="hero-stat" aria-label="45+ events powered">
+          <div className="hero-stat" aria-label={`${eventsCount} events powered`}>
             <span className="data hero-stat__num">
-              <CountUp to={45} suffix="+" />
+              <CountUp to={eventsCount} suffix="+" />
             </span>
             <span className="hero-stat__label">events powered</span>
           </div>

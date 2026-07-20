@@ -8,7 +8,10 @@ import { cn } from "@/lib/cn";
 interface CountUpProps {
   /** Target value to count to. */
   to: number;
-  /** Starting value (default 0). */
+  /**
+   * Starting value for the count-up. Defaults to a fraction of `to` (not 0) so
+   * the animation reads as a quick "settle" rather than counting from zero.
+   */
   from?: number;
   /** Animation duration in seconds (default 1.6). */
   duration?: number;
@@ -32,7 +35,7 @@ interface CountUpProps {
  */
 export function CountUp({
   to,
-  from = 0,
+  from,
   duration = 1.1,
   decimals = 0,
   group = true,
@@ -43,21 +46,24 @@ export function CountUp({
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
   const reduced = useReducedMotion() ?? false;
-  const [value, setValue] = useState(from);
+  // Count up from a fraction of the target (default 60%), never from 0.
+  const start = from ?? Math.max(0, Math.round(to * 0.6));
+  // IMPORTANT: initialise at the real target so SSR / first paint / no-JS show
+  // the true number (never a "0+"). The animation runs client-side once visible.
+  const [value, setValue] = useState(to);
 
   useEffect(() => {
-    if (!inView) return;
-    if (reduced) {
+    if (!inView || reduced) {
       setValue(to);
       return;
     }
-    const controls = animate(from, to, {
+    const controls = animate(start, to, {
       duration,
       ease: EASE,
       onUpdate: (v) => setValue(v),
     });
     return () => controls.stop();
-  }, [inView, reduced, from, to, duration]);
+  }, [inView, reduced, start, to, duration]);
 
   const formatted = value.toLocaleString(undefined, {
     minimumFractionDigits: decimals,

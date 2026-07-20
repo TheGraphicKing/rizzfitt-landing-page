@@ -1,8 +1,20 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Section, Tag, StatBand, Card, Reveal, RevealItem } from "@/components/primitives";
+import { Section, Tag, StatBand, Button, Card, Reveal, RevealItem } from "@/components/primitives";
+import type { Stat } from "@/components/primitives/StatBand";
+import { derivedStats, MANUAL_STATS } from "@/lib/stats";
 
 const CASES = ["Bengaluru Open", "Indian Pickleball Nationals", "KLTR Open Singapore"];
+
+/** All real, derived from the events dataset; players-reached only shows if supplied. */
+const STATS: Stat[] = [
+  { value: derivedStats.events, suffix: "+", label: "Events run" },
+  { value: derivedStats.cities, label: "Cities" },
+  { value: derivedStats.sports, label: "Sports" },
+  ...(MANUAL_STATS.playersReached != null
+    ? [{ value: MANUAL_STATS.playersReached, suffix: "+", label: "Players reached" } as Stat]
+    : []),
+];
 
 /**
  * Proof / track record (live). Count-up stat band plus three case teasers
@@ -16,16 +28,18 @@ export function ProofStats() {
         <div className="stack" style={{ gap: "var(--space-3)", maxWidth: "48rem" }}>
           <Tag>The track record</Tag>
           <h2 className="h1">Built on real events.</h2>
+          <p className="body-l muted">
+            {derivedStats.events} events run end to end across {derivedStats.cities}{" "}
+            cities — every one on the software we sell.
+          </p>
+          <div className="cluster">
+            <Button href="/events" variant="ghost" iconRight={<ArrowUpRight size={18} />}>
+              See all {derivedStats.events} events
+            </Button>
+          </div>
         </div>
 
-        <StatBand
-          stats={[
-            { value: 45, suffix: "+", label: "Events" },
-            { value: 15, suffix: "+", label: "Cities" },
-            { value: 4, label: "Sports" },
-            { value: 8000, suffix: "+", label: "Players reached" },
-          ]}
-        />
+        <StatBand stats={STATS} />
 
         <Reveal
           className="case-teasers"

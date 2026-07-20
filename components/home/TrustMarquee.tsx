@@ -32,7 +32,7 @@ export function TrustMarquee() {
           <Tag>Trusted on the court</Tag>
           <p className="body-l">
             Trusted by the Tamil Nadu Pickleball Association and the Indian
-            Pickleball Association — and by 45+ organisers across 15+ cities, from
+            Pickleball Association — across 47 events in 10 cities, from
             Chennai to Singapore.
           </p>
         </div>

@@ -8,7 +8,7 @@ import { events, sports, cities } from "@/data";
 export const metadata: Metadata = {
   title: "Events — every RizzFitt event, in one place",
   description:
-    "Tournaments, leagues and mixers we're running and have run — across pickleball, badminton, cricket and football, in 15+ cities and counting.",
+    "Tournaments, leagues and mixers we're running and have run — across pickleball, badminton, cricket and football, in 10 cities and counting.",
 };
 
 /**
@@ -27,8 +27,8 @@ export default function EventsPage() {
           </h1>
           <p className="body-l muted">
             Tournaments, leagues and mixers we&apos;re running and have run —
-            across pickleball, badminton, cricket and football, in 15+ cities and
-            counting.
+            across pickleball, badminton, cricket, football and fitness circuits,
+            in 10 cities and counting.
           </p>
         </div>
 
