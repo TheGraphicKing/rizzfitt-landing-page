@@ -367,6 +367,8 @@ html.lenis, html.lenis body { height: auto; }
   padding:6px 12px;border-radius:var(--r-pill);background:var(--surface-2);
   box-shadow:inset 0 0 0 1px var(--border);pointer-events:none;}
 @media(max-width:768px){.hero-hint{display:none;}}
+/* "Move your cursor" makes no sense without a mouse — hide on touch devices. */
+@media(pointer:coarse){.hero-hint{display:none;}}
 
 /* Flow diagram (pinned showpiece) */
 .flow-stage{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
