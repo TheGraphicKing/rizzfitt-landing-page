@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none" role="img" aria-label="RizzFitt hero">
+  <defs>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF9145"/>
+      <stop offset="1" stop-color="#C4561A"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-12 400 300)">
+    <rect x="270" y="170" width="260" height="260" rx="36" fill="url(#blade)"/>
+    <circle cx="560" cy="210" r="42" fill="#FF9145"/>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+[
+  { "id": "tnpa", "name": "TNPA", "type": "association", "location": "Tamil Nadu" },
+  { "id": "tnbdg", "name": "TNBDG", "type": "association", "location": "Tamil Nadu" },
+  { "id": "ipa", "name": "Indian Pickleball Association", "type": "association", "location": "India" },
+  { "id": "ecr-arena", "name": "ECR Sports Arena", "type": "venue", "location": "Chennai" },
+  { "id": "phoenix-courts", "name": "Phoenix Courts", "type": "venue", "location": "Bengaluru" },
+  { "id": "nehru-stadium", "name": "Nehru Indoor Stadium", "type": "venue", "location": "Chennai" },
+  { "id": "velachery-courts", "name": "Velachery Indoor Courts", "type": "venue", "location": "Chennai" },
+  { "id": "gachibowli-stadium", "name": "Gachibowli Indoor Stadium", "type": "venue", "location": "Hyderabad" }
+]

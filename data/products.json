@@ -1,0 +1,64 @@
+[
+  {
+    "id": "tournament-os",
+    "slug": "tournament-os",
+    "name": "Tournament OS",
+    "icon": "Trophy",
+    "tagline": "Run a tournament like a broadcast.",
+    "description": "Auto fixtures, auto scoring, auto re-seeding. Brackets that draw themselves and a live scoreboard your referees just watch.",
+    "features": [
+      "Auto fixtures & seeding",
+      "Live scoring with brackets that draw themselves",
+      "Auto re-seeding between rounds",
+      "Payments on the Indian rail (UPI / cards)",
+      "Sponsor placements & broadcast overlays"
+    ],
+    "status": "live"
+  },
+  {
+    "id": "community-os",
+    "slug": "community-os",
+    "name": "Community OS",
+    "icon": "Users",
+    "tagline": "Turn players into a community.",
+    "description": "Memberships, comms, and recurring play that keep people coming back after the final whistle.",
+    "features": [
+      "Member directories & roles",
+      "Group comms & announcements",
+      "Recurring sessions & RSVPs",
+      "Skill-based matchmaking",
+      "Community analytics"
+    ],
+    "status": "live"
+  },
+  {
+    "id": "run-club-os",
+    "slug": "run-club-os",
+    "name": "Run Club OS",
+    "icon": "Footprints",
+    "tagline": "Every Saturday, organised.",
+    "description": "Routes, RSVPs, pace groups, and streaks for the run clubs RizzFitt powers.",
+    "features": [
+      "Route planning & maps",
+      "Pace groups & RSVPs",
+      "Streaks & leaderboards",
+      "Recurring weekly cadence",
+      "Club comms"
+    ],
+    "status": "live"
+  },
+  {
+    "id": "rizzfitt-connect",
+    "slug": "connect",
+    "name": "RizzFitt Connect",
+    "icon": "Handshake",
+    "tagline": "Find your next match.",
+    "description": "The buddy app that pairs players by sport, level, and location. Teaser only — coming soon.",
+    "features": [
+      "Buddy matching by sport & level",
+      "Location-aware discovery",
+      "In-app challenges"
+    ],
+    "status": "teaser"
+  }
+]
