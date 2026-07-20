@@ -3,6 +3,7 @@ import { cn } from "@/lib/cn";
 import { formatShortDate } from "@/lib/format";
 import { EventCover } from "./EventCover";
 import { realOrNone } from "@/lib/assets";
+import { canonicalEventUrl } from "@/lib/events";
 import type { RizzEvent } from "@/lib/types";
 
 const STATUS_LABEL: Record<RizzEvent["status"], string> = {
@@ -42,18 +43,20 @@ export function EventCard({ event }: { event: RizzEvent }) {
   );
 
   const label = `${event.title} — ${STATUS_LABEL[event.status]}`;
+  const { href, external } = canonicalEventUrl(event);
 
-  // Some events link to an external tournament page rather than the internal one.
-  if (event.externalUrl) {
+  // Registration/live events link to the tournament app; everything else opens
+  // its marketing page on this site. Behaviour is centralised in canonicalEventUrl.
+  if (external) {
     return (
-      <a href={event.externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`${label} (opens tournament site)`}>
+      <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} (opens tournament site)`}>
         {inner}
       </a>
     );
   }
 
   return (
-    <Link href={`/events/${event.slug}`} aria-label={label}>
+    <Link href={href} aria-label={label}>
       {inner}
     </Link>
   );

@@ -2,7 +2,10 @@ import { Section, Tag, Button, CTABand } from "@/components/primitives";
 import { MiniFAQ } from "@/components/MiniFAQ";
 import { whatsappLink } from "@/lib/contact";
 import { derivedStats } from "@/lib/stats";
+import { cities } from "@/data";
 import { HeroSection } from "@/components/home/HeroSection";
+import { SocialMixers } from "@/components/home/SocialMixers";
+import { EventsStrip } from "@/components/home/EventsStrip";
 import { TrustMarquee } from "@/components/home/TrustMarquee";
 import { AudienceRouter } from "@/components/home/AudienceRouter";
 import { FlowDiagram } from "@/components/home/FlowDiagram";
@@ -20,6 +23,8 @@ export default function HomePage() {
   return (
     <>
       <HeroSection eventsCount={derivedStats.events} />
+      <SocialMixers cities={cities} />
+      <EventsStrip />
       <TrustMarquee />
       <AudienceRouter />
       <FlowDiagram />

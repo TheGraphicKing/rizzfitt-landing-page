@@ -13,6 +13,10 @@ interface Props {
   events: RizzEvent[];
   sports: string[];
   cities: string[];
+  /** Initial filter values (e.g. deep-linked from /events?city=Bengaluru). */
+  initialStatus?: StatusFilter;
+  initialSport?: string;
+  initialCity?: string;
 }
 
 /**
@@ -20,11 +24,18 @@ interface Props {
  * uses Framer's `layout` animation so cards reflow smoothly with no jump.
  * Reduced motion: layout animation + scale are disabled (instant reflow).
  */
-export function EventsDirectory({ events, sports, cities }: Props) {
+export function EventsDirectory({
+  events,
+  sports,
+  cities,
+  initialStatus = "all",
+  initialSport = "all",
+  initialCity = "all",
+}: Props) {
   const reduced = useReducedMotion() ?? false;
-  const [status, setStatus] = useState<StatusFilter>("all");
-  const [sport, setSport] = useState<string>("all");
-  const [city, setCity] = useState<string>("all");
+  const [status, setStatus] = useState<StatusFilter>(initialStatus);
+  const [sport, setSport] = useState<string>(initialSport);
+  const [city, setCity] = useState<string>(initialCity);
 
   const filtered = useMemo(
     () =>

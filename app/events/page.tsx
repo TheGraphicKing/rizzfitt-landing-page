@@ -15,7 +15,18 @@ export const metadata: Metadata = {
  * Events directory (live). Header + chip filters + animated grid reading from
  * data/events.json, closed by the organiser CTA band.
  */
-export default function EventsPage() {
+export default async function EventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string; sport?: string; city?: string }>;
+}) {
+  const sp = await searchParams;
+  const initialStatus = (["all", "upcoming", "past"].includes(sp.status ?? "")
+    ? sp.status
+    : "all") as "all" | "upcoming" | "past";
+  const initialSport = sp.sport && sports.includes(sp.sport) ? sp.sport : "all";
+  const initialCity = sp.city && cities.includes(sp.city) ? sp.city : "all";
+
   return (
     <>
       <PageMode mode="live" />
@@ -32,7 +43,14 @@ export default function EventsPage() {
           </p>
         </div>
 
-        <EventsDirectory events={events} sports={sports} cities={cities} />
+        <EventsDirectory
+          events={events}
+          sports={sports}
+          cities={cities}
+          initialStatus={initialStatus}
+          initialSport={initialSport}
+          initialCity={initialCity}
+        />
       </Section>
 
       <MiniFAQ group="events" mode="live" />
