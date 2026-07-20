@@ -16,6 +16,8 @@ import { FeatureRevealGrid, type RevealFeature } from "@/components/products/Fea
 import { CommunitiesChips } from "@/components/products/CommunitiesChips";
 import { EngagementStats } from "@/components/products/EngagementStats";
 import { Testimonials } from "@/components/testimonials/Testimonials";
+import { Collage } from "@/components/Collage";
+import { communityGalleryItems } from "@/lib/gallery";
 import { MiniFAQ } from "@/components/MiniFAQ";
 
 export const metadata: Metadata = {
@@ -63,6 +65,22 @@ export default function CommunityOSPage() {
       </Section>
 
       <FeatureRevealGrid id="features" eyebrow="Manage everything" headline="From members to moments." features={FEATURES} />
+
+      {/* Real community photography */}
+      <Section mode="os">
+        <div className="stack" style={{ gap: "var(--space-3)", maxWidth: "48rem", marginBottom: "var(--space-6)" }}>
+          <Tag>Communities we power</Tag>
+          <h2 className="h1" style={{ margin: 0 }}>
+            Real rooms, real regulars.
+          </h2>
+          <p className="body-l muted">
+            From our own Bangalore pickleball mixers to the clubs on RizzFitt — this
+            is what &ldquo;showing up&rdquo; actually looks like.
+          </p>
+        </div>
+        <Collage label="Photos from RizzFitt community mixers" items={communityGalleryItems()} />
+      </Section>
+
       <CommunitiesChips />
       <EngagementStats />
       <Testimonials tag="community-os" mode="os" eyebrow="From community builders" heading="Communities that stuck around." />

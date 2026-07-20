@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { Section, Tag, Button, Card, CourtRule } from "@/components/primitives";
 import { PageMode } from "@/components/layout/PageMode";
 import { JourneyStrip } from "@/components/about/JourneyStrip";
+import { Collage } from "@/components/Collage";
+import { communityGalleryItems } from "@/lib/gallery";
 
 export const metadata: Metadata = {
   title: "About — we power sports communities and events",
@@ -53,6 +55,11 @@ export default function AboutPage() {
             to the court for the people, not just the points.
           </p>
         </div>
+      </Section>
+
+      {/* Real photos — the community we're building */}
+      <Section mode="live">
+        <Collage label="RizzFitt on the ground — a Bangalore pickleball mixer" items={communityGalleryItems()} />
       </Section>
 
       <JourneyStrip />

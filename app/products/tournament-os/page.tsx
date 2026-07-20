@@ -8,7 +8,7 @@ import { FeatureGridTOS } from "@/components/products/FeatureGridTOS";
 import { SetupTimeline } from "@/components/products/SetupTimeline";
 import { ProofRow } from "@/components/products/ProofRow";
 import { Testimonials } from "@/components/testimonials/Testimonials";
-import { ProductMedia } from "@/components/ProductMedia";
+import { TournamentOSDemo } from "@/components/demos/TournamentOSDemo";
 import { IntegrationsStrip } from "@/components/IntegrationsStrip";
 import { MiniFAQ } from "@/components/MiniFAQ";
 
@@ -56,12 +56,10 @@ export default function TournamentOSPage() {
             A scoreboard your referees just watch.
           </h2>
         </div>
-        {/* TODO(content): /public/product/live-scoring.png — a real live-scoring screenshot. */}
-        <ProductMedia
-          src="/product/live-scoring.png"
-          alt="RizzFitt live scoring — a bracket updating in real time with a broadcast-style scoreboard"
-          caption="Live scores and brackets update the moment a point is entered."
-        />
+        <TournamentOSDemo view="scoring" />
+        <p className="small muted" style={{ marginTop: "var(--space-3)" }}>
+          A live, interactive demo — the match scores itself and the bracket re-seeds automatically.
+        </p>
       </Section>
 
       <FeatureGridTOS />
@@ -98,12 +96,10 @@ export default function TournamentOSPage() {
             Registrations, payments and results in one view.
           </h2>
         </div>
-        {/* TODO(content): /public/product/dashboard-analytics.png — a real organiser dashboard screenshot. */}
-        <ProductMedia
-          src="/product/dashboard-analytics.png"
-          alt="RizzFitt organiser dashboard — registrations, payments and analytics at a glance"
-          caption="The organiser dashboard: registrations, revenue and attendance at a glance."
-        />
+        <TournamentOSDemo view="dashboard" />
+        <p className="small muted" style={{ marginTop: "var(--space-3)" }}>
+          A live, interactive demo — registrations, revenue and check-ins update in real time.
+        </p>
       </Section>
 
       <PricingTiers />

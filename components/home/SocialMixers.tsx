@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Activity, Users, Coffee, Sparkles, ArrowRight, type LucideIcon } from "lucide-react";
 import { Section, Tag, Button } from "@/components/primitives";
+import { Collage } from "@/components/Collage";
+import { communityGalleryItems } from "@/lib/gallery";
 
 const POINTS: { icon: LucideIcon; label: string; line: string }[] = [
   { icon: Activity, label: "Just play", line: "A game is the icebreaker — no small talk required." },
@@ -50,6 +52,9 @@ export function SocialMixers({ cities }: { cities: string[] }) {
             </div>
           ))}
         </div>
+
+        {/* Real photos from the Bangalore mixer */}
+        <Collage label="Photos from a recent RizzFitt Socials mixer" items={communityGalleryItems()} />
 
         {/* City selector + CTAs */}
         <div
