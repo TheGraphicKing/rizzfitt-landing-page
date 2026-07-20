@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
@@ -13,10 +14,6 @@ interface Props {
   events: RizzEvent[];
   sports: string[];
   cities: string[];
-  /** Initial filter values (e.g. deep-linked from /events?city=Bengaluru). */
-  initialStatus?: StatusFilter;
-  initialSport?: string;
-  initialCity?: string;
 }
 
 /**
@@ -24,18 +21,22 @@ interface Props {
  * uses Framer's `layout` animation so cards reflow smoothly with no jump.
  * Reduced motion: layout animation + scale are disabled (instant reflow).
  */
-export function EventsDirectory({
-  events,
-  sports,
-  cities,
-  initialStatus = "all",
-  initialSport = "all",
-  initialCity = "all",
-}: Props) {
+export function EventsDirectory({ events, sports, cities }: Props) {
   const reduced = useReducedMotion() ?? false;
+  const params = useSearchParams();
+
+  // Deep-link support: /events?status=upcoming&sport=Pickleball&city=Bengaluru.
+  // Read client-side so the page itself stays statically prerendered (SSG).
+  const qStatus = params.get("status");
+  const initialStatus: StatusFilter = ["upcoming", "past"].includes(qStatus ?? "")
+    ? (qStatus as StatusFilter)
+    : "all";
+  const qSport = params.get("sport");
+  const qCity = params.get("city");
+
   const [status, setStatus] = useState<StatusFilter>(initialStatus);
-  const [sport, setSport] = useState<string>(initialSport);
-  const [city, setCity] = useState<string>(initialCity);
+  const [sport, setSport] = useState<string>(qSport && sports.includes(qSport) ? qSport : "all");
+  const [city, setCity] = useState<string>(qCity && cities.includes(qCity) ? qCity : "all");
 
   const filtered = useMemo(
     () =>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Section, Tag, Button } from "@/components/primitives";
 import { EventsDirectory } from "@/components/events/EventsDirectory";
 import { PageMode } from "@/components/layout/PageMode";
@@ -19,18 +20,7 @@ export const metadata: Metadata = {
  * this is fetched live from tournament.rizzfitt.com so new events appear here
  * automatically and the homepage counts stay current without a redeploy.
  */
-export default async function EventsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ status?: string; sport?: string; city?: string }>;
-}) {
-  const sp = await searchParams;
-  const initialStatus = (["all", "upcoming", "past"].includes(sp.status ?? "")
-    ? sp.status
-    : "all") as "all" | "upcoming" | "past";
-  const initialSport = sp.sport && sports.includes(sp.sport) ? sp.sport : "all";
-  const initialCity = sp.city && cities.includes(sp.city) ? sp.city : "all";
-
+export default function EventsPage() {
   return (
     <>
       <PageMode mode="live" />
@@ -47,14 +37,9 @@ export default async function EventsPage({
           </p>
         </div>
 
-        <EventsDirectory
-          events={events}
-          sports={sports}
-          cities={cities}
-          initialStatus={initialStatus}
-          initialSport={initialSport}
-          initialCity={initialCity}
-        />
+        <Suspense fallback={null}>
+          <EventsDirectory events={events} sports={sports} cities={cities} />
+        </Suspense>
       </Section>
 
       <MiniFAQ group="events" mode="live" />

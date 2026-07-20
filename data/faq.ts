@@ -8,7 +8,13 @@ export interface FaqItem {
   a: string;
 }
 
-export type FaqGroupId = "general" | "tournament-os" | "community-os" | "events" | "partners";
+export type FaqGroupId =
+  | "general"
+  | "tournament-os"
+  | "community-os"
+  | "run-club-os"
+  | "events"
+  | "partners";
 
 export interface FaqGroup {
   id: FaqGroupId;
@@ -44,13 +50,26 @@ export const FAQ_GROUPS: FaqGroup[] = [
   },
   {
     id: "community-os",
-    title: "Community & Run Club OS",
+    title: "Community OS",
     cta: { label: "Book a demo", href: "/book-a-demo" },
     items: [
-      { q: "Can I run paid memberships and free events together?", a: "Yes — mix paid and free, recurring and one-off, in the same community." },
-      { q: "Does it work over WhatsApp?", a: "Yes — announcements, reminders and confirmations go out over WhatsApp, email and SMS." },
-      { q: "Can I manage multiple communities from one account?", a: "Yes — run several communities or clubs from a single dashboard." },
+      { q: "Can I run paid memberships and free events together?", a: "Yes — mix paid and free, recurring and one-off, in the same community, with tiers and renewals handled." },
+      { q: "Can I manage multiple communities from one account?", a: "Yes — run several communities from a single dashboard, each with its own members, branding and calendar." },
+      { q: "Can I segment members for targeted outreach?", a: "Yes — group by skill, location, membership tier or activity, then message just that segment." },
+      { q: "How does it surface who's drifting away?", a: "Attendance and engagement analytics flag members who've gone quiet, so you can re-invite them before they lapse." },
       { q: "Can members self-register?", a: "Yes — members register themselves, pick categories and RSVP for specific events." },
+    ],
+  },
+  {
+    id: "run-club-os",
+    title: "Run Club OS",
+    cta: { label: "Book a demo", href: "/book-a-demo" },
+    items: [
+      { q: "How do pace groups work?", a: "Runners are sorted into pace groups automatically each week, so everyone runs with people at their speed without manual sorting." },
+      { q: "Can I save and share routes?", a: "Yes — build a route library with distance, elevation and meeting points, and share the week's route in one tap." },
+      { q: "How do weekly runs and RSVPs work?", a: "Set the weekly cadence once; RSVPs, capacity, waitlists and reminders fire on their own for every run." },
+      { q: "How do you welcome new runners?", a: "First-timers get a dedicated onboarding so they know where to be, what to bring, and which pace group is theirs." },
+      { q: "Does it track streaks and attendance?", a: "Yes — attendance is logged automatically, and streaks and leaderboards keep regulars coming back." },
     ],
   },
   {

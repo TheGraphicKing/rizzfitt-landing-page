@@ -7,6 +7,7 @@ import { ScoreboardMoat } from "@/components/products/ScoreboardMoat";
 import { FeatureGridTOS } from "@/components/products/FeatureGridTOS";
 import { SetupTimeline } from "@/components/products/SetupTimeline";
 import { ProofRow } from "@/components/products/ProofRow";
+import { Testimonials } from "@/components/testimonials/Testimonials";
 import { MiniFAQ } from "@/components/MiniFAQ";
 
 export const metadata: Metadata = {
@@ -73,6 +74,7 @@ export default function TournamentOSPage() {
       <PricingTiers />
 
       <ProofRow />
+      <Testimonials tag="tournament-os" mode="os" eyebrow="From organisers" heading="Run by the people who run events." />
       <MiniFAQ group="tournament-os" />
       <Section mode="os">
         <CTABand

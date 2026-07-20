@@ -15,6 +15,7 @@ import { CommunityHero } from "@/components/products/CommunityHero";
 import { FeatureRevealGrid, type RevealFeature } from "@/components/products/FeatureRevealGrid";
 import { CommunitiesChips } from "@/components/products/CommunitiesChips";
 import { EngagementStats } from "@/components/products/EngagementStats";
+import { Testimonials } from "@/components/testimonials/Testimonials";
 import { MiniFAQ } from "@/components/MiniFAQ";
 
 export const metadata: Metadata = {
@@ -23,14 +24,16 @@ export const metadata: Metadata = {
     "Members, events, attendance, payments and communication — one place to run any sports community, and the tools to keep it growing.",
 };
 
+// Community OS emphasis: memberships, multi-community, segmentation — the
+// membership-org toolkit. (Run-specific tooling lives on Run Club OS.)
 const FEATURES: RevealFeature[] = [
-  { name: "Member database", benefit: "One source of truth for everyone in your community, with profiles, tags and history.", icon: Users },
-  { name: "Attendance tracking", benefit: "Who came, how often, who's slipping away — automatically.", icon: UserCheck },
-  { name: "Event registrations & payments", benefit: "Recurring or one-off, free or paid, individual or group.", icon: Ticket },
+  { name: "Memberships & tiers", benefit: "Paid or free, monthly or annual — with renewals, joining flows and member perks handled.", icon: Ticket },
+  { name: "Multi-community management", benefit: "Run several communities from one account, each with its own members, branding and calendar.", icon: Layers },
+  { name: "Member directory", benefit: "One source of truth for everyone, with profiles, roles, tags and full history.", icon: Users },
+  { name: "Member segmentation", benefit: "Group by skill, location, tier or activity, then message just that segment.", icon: HeartHandshake },
+  { name: "Attendance & drift alerts", benefit: "See who came, how often, and who's slipping away — and re-invite them before they lapse.", icon: UserCheck },
   { name: "Announcements & comms", benefit: "Reach everyone on WhatsApp, email and SMS without copy-pasting.", icon: Megaphone },
   { name: "Recurring event automation", benefit: "Set a weekly/monthly cadence once; invites and reminders fire on their own.", icon: Repeat },
-  { name: "Volunteer management", benefit: "Recruit, assign roles and confirm volunteers without the back-and-forth.", icon: HeartHandshake },
-  { name: "Member segmentation", benefit: "Group by skill, location, activity or membership for targeted outreach.", icon: Layers },
   { name: "Partner offers & perks", benefit: "Bring sponsor discounts and partner perks to your members.", icon: Gift },
   { name: "Community analytics", benefit: "Growth, retention, attendance and engagement at a glance.", icon: BarChart3 },
 ];
@@ -62,6 +65,7 @@ export default function CommunityOSPage() {
       <FeatureRevealGrid id="features" eyebrow="Manage everything" headline="From members to moments." features={FEATURES} />
       <CommunitiesChips />
       <EngagementStats />
+      <Testimonials tag="community-os" mode="os" eyebrow="From community builders" heading="Communities that stuck around." />
       <MiniFAQ group="community-os" />
       <Section mode="os">
         <CTABand title="Give your community a home." primary={{ label: "Book a demo", href: "/book-a-demo" }} />

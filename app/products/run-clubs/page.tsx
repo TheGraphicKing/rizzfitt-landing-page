@@ -7,8 +7,7 @@ import {
   UserPlus,
   Users,
   MessageCircle,
-  Gift,
-  Handshake,
+  Flame,
   BarChart3,
   Repeat,
 } from "lucide-react";
@@ -16,6 +15,7 @@ import { Section, Tag, CTABand } from "@/components/primitives";
 import { RunClubHero } from "@/components/products/RunClubHero";
 import { FeatureRevealGrid, type RevealFeature } from "@/components/products/FeatureRevealGrid";
 import { QuoteBand } from "@/components/products/QuoteBand";
+import { Testimonials } from "@/components/testimonials/Testimonials";
 import { MiniFAQ } from "@/components/MiniFAQ";
 
 export const metadata: Metadata = {
@@ -26,18 +26,19 @@ export const metadata: Metadata = {
 
 // Run Clubs is a solution page on the Community OS engine — same components,
 // run-club framing. Spec lists 11 features under "Everything a run club needs".
+// Run Club OS emphasis: pace groups, routes and weekly cadence — the tooling a
+// running crew needs. (Memberships/segmentation live on Community OS.)
 const FEATURES: RevealFeature[] = [
+  { name: "Pace-group allocation", benefit: "Sort runners into pace groups automatically, run after run — everyone runs with their speed.", icon: Gauge },
+  { name: "Route management & maps", benefit: "Build a route library with distance, elevation and meeting points; share the week's route in a tap.", icon: Route },
   { name: "Weekly run registrations", benefit: "Members RSVP for specific runs; capacity and waitlists handled.", icon: CalendarDays },
+  { name: "New-runner onboarding", benefit: "Welcome first-timers with where to be, what to bring, and which pace group is theirs.", icon: UserPlus },
+  { name: "Streaks & leaderboards", benefit: "Reward the regulars — streaks and friendly leaderboards keep runners coming back.", icon: Flame },
   { name: "Attendance tracking", benefit: "Who showed, how often, and who's drifting — logged automatically.", icon: UserCheck },
-  { name: "Pace-group allocation", benefit: "Sort runners into pace groups automatically, run after run.", icon: Gauge },
-  { name: "Route management", benefit: "Save, share and map routes with distance and meeting points.", icon: Route },
-  { name: "New-runner onboarding", benefit: "Welcome first-timers with the info they need to show up confident.", icon: UserPlus },
-  { name: "Volunteer & pacer management", benefit: "Recruit pacers and volunteers, assign roles, confirm without the chase.", icon: Users },
-  { name: "WhatsApp & email comms", benefit: "Reach the whole club without copy-pasting into a group chat.", icon: MessageCircle },
-  { name: "Partner discounts & perks", benefit: "Bring brand discounts and partner perks to your runners.", icon: Gift },
-  { name: "Sponsor management", benefit: "Package your club's reach and manage sponsor relationships.", icon: Handshake },
-  { name: "Member analytics", benefit: "Growth, attendance, pace trends and engagement at a glance.", icon: BarChart3 },
   { name: "Recurring-run automation", benefit: "Set the weekly cadence once; invites and reminders fire on their own.", icon: Repeat },
+  { name: "WhatsApp & email comms", benefit: "Reach the whole club without copy-pasting into a group chat.", icon: MessageCircle },
+  { name: "Pacer & volunteer management", benefit: "Recruit pacers and volunteers, assign roles, confirm without the chase.", icon: Users },
+  { name: "Pace & attendance analytics", benefit: "Attendance, pace trends and engagement at a glance.", icon: BarChart3 },
 ];
 
 /**
@@ -66,7 +67,8 @@ export default function RunClubsPage() {
 
       <FeatureRevealGrid id="features" eyebrow="Everything a run club needs" headline="From RSVP to recap." features={FEATURES} />
       <QuoteBand quote="Spend less time managing spreadsheets. Spend more time building community." />
-      <MiniFAQ group="community-os" />
+      <Testimonials tag="run-club-os" mode="os" eyebrow="From run-club organisers" heading="Clubs that show up, week after week." />
+      <MiniFAQ group="run-club-os" />
       <Section mode="os">
         <CTABand title="Start your run club, properly." primary={{ label: "Book a demo", href: "/book-a-demo" }} />
       </Section>
