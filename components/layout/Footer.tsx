@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin, MessageCircle, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
 import { NewsletterStrip } from "./NewsletterStrip";
 import { BrandBadge } from "@/components/BrandBadge";
-import { CONTACT } from "@/lib/contact";
+import { CONTACT, whatsappLink } from "@/lib/contact";
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -79,6 +79,29 @@ export function Footer() {
             <p className="muted small" style={{ maxWidth: "26ch" }}>
               The operating system for sports communities and events.
             </p>
+
+            {/* Direct contact lines */}
+            <div className="stack" style={{ gap: "var(--space-2)" }}>
+              <a
+                className="cluster small muted"
+                style={{ gap: 8 }}
+                href={whatsappLink("Hi RizzFitt — I have a question.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle size={16} aria-hidden />
+                <span className="data">{CONTACT.whatsappNumber}</span>
+              </a>
+              <a className="cluster small muted" style={{ gap: 8 }} href={CONTACT.phoneTel}>
+                <Phone size={16} aria-hidden />
+                <span className="data">{CONTACT.phone}</span>
+              </a>
+              <a className="cluster small muted" style={{ gap: 8 }} href={`mailto:${CONTACT.email}`}>
+                <Mail size={16} aria-hidden />
+                <span className="data">{CONTACT.email}</span>
+              </a>
+            </div>
+
             <div className="cluster" style={{ gap: "var(--space-3)" }}>
               <BrandBadge name="TNPA" />
               <BrandBadge name="Indian Pickleball Association" />

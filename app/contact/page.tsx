@@ -86,6 +86,9 @@ export default function ContactPage() {
             <a className="pill" href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">
               WhatsApp · <span className="data">{CONTACT.whatsappNumber}</span>
             </a>
+            <a className="pill" href={CONTACT.phoneTel}>
+              Call · <span className="data">{CONTACT.phone}</span>
+            </a>
             <div className="cluster">
               <a className="pill" href={CONTACT.instagram} target="_blank" rel="noopener noreferrer">
                 Instagram

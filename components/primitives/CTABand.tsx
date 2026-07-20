@@ -5,6 +5,8 @@ import { Button } from "./Button";
 interface CTAAction {
   label: string;
   href: string;
+  /** Open in a new tab (adds rel=noopener) — e.g. WhatsApp / external apps. */
+  external?: boolean;
 }
 
 interface CTABandProps {
@@ -34,11 +36,11 @@ export function CTABand({ title, subtitle, primary, secondary, className }: CTAB
         </p>
       ) : null}
       <div className="cluster" style={{ justifyContent: "center" }}>
-        <Button href={primary.href} variant="primary">
+        <Button href={primary.href} variant="primary" external={primary.external}>
           {primary.label}
         </Button>
         {secondary ? (
-          <Button href={secondary.href} variant="ghost">
+          <Button href={secondary.href} variant="ghost" external={secondary.external}>
             {secondary.label}
           </Button>
         ) : null}

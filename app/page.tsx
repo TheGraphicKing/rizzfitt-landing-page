@@ -1,5 +1,6 @@
 import { Section, Tag, Button, CTABand } from "@/components/primitives";
 import { MiniFAQ } from "@/components/MiniFAQ";
+import { whatsappLink } from "@/lib/contact";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustMarquee } from "@/components/home/TrustMarquee";
 import { AudienceRouter } from "@/components/home/AudienceRouter";
@@ -49,7 +50,7 @@ export default function HomePage() {
         <CTABand
           title="Bring your next event to life."
           primary={{ label: "Book a demo", href: "/book-a-demo" }}
-          secondary={{ label: "Talk to us on WhatsApp", href: "https://wa.me/910000000000" }}
+          secondary={{ label: "Talk to us on WhatsApp", href: whatsappLink("Hi RizzFitt — I'd like to know more."), external: true }}
         />
       </Section>
     </>

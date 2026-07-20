@@ -1,13 +1,20 @@
-/** Shared contact details + social links. Swap in real values before launch. */
+/** Shared contact details + social links. Single source of truth for every
+ *  contact CTA, footer, and the WhatsApp deep links across the site. */
 export const CONTACT = {
   email: "hello@rizzfitt.com",
   partnersEmail: "partners@rizzfitt.com",
   pressEmail: "press@rizzfitt.com",
-  whatsappNumber: "+91 00000 00000",
-  whatsappUrl: "https://wa.me/910000000000",
+  /** Human-readable phone, for display. */
+  phone: "+91 78450 45444",
+  /** `tel:` href form — no spaces, leading +. */
+  phoneTel: "tel:+917845045444",
+  /** Human-readable WhatsApp number, for display. */
+  whatsappNumber: "+91 78450 45444",
+  /** Base WhatsApp deep link (no message). */
+  whatsappUrl: "https://wa.me/917845045444",
   instagram: "https://instagram.com/rizzfitt",
   linkedin: "https://linkedin.com/company/rizzfitt",
-  location: "Based in India · operating across 15+ cities",
+  location: "Based in India · events across 10 cities",
 } as const;
 
 /** Build a WhatsApp deep link with a prefilled message. */
