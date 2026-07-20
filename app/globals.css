@@ -773,6 +773,14 @@ textarea.reach-input{resize:vertical;line-height:1.5;}
   background:var(--surface-2);color:var(--text);box-shadow:inset 0 0 0 1px var(--border);cursor:pointer;}
 .testi-arrow:hover{color:var(--accent);}
 
+/* Product screenshot / demo-video slot */
+.product-media{position:relative;width:100%;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--border);}
+.product-media img,.product-media video{width:100%;height:100%;}
+.product-media__badge{position:absolute;bottom:var(--space-3);left:var(--space-3);font-size:0.7rem;
+  font-weight:600;letter-spacing:0.04em;padding:4px 10px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);}
+
 /* Looping event clips */
 .video-loop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);}
 .video-loop-tile{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:9/16;

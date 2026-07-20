@@ -17,13 +17,16 @@ function walk(dir) {
     if (s.isDirectory()) walk(p);
     else {
       const rel = "/" + relative(pub, p).split(/[\\/]/).join("/");
-      if (/\.(jpe?g|png|webp|avif|gif)$/i.test(rel)) out.push(rel);
+      // Images + product demo video (mp4/webm) so product media slots can detect
+      // real assets and fall back to branded placeholders when absent.
+      if (/\.(jpe?g|png|webp|avif|gif|svg|mp4|webm)$/i.test(rel)) out.push(rel);
     }
   }
 }
 
 walk(join(pub, "photos"));
 walk(join(pub, "brand"));
+walk(join(pub, "product"));
 
 const dataDir = join(root, "data");
 if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });

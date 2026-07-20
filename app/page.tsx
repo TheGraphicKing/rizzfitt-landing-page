@@ -5,6 +5,7 @@ import { derivedStats } from "@/lib/stats";
 import { cities } from "@/data";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SocialMixers } from "@/components/home/SocialMixers";
+import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { EventsStrip } from "@/components/home/EventsStrip";
 import { TrustMarquee } from "@/components/home/TrustMarquee";
 import { AudienceRouter } from "@/components/home/AudienceRouter";
@@ -24,6 +25,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection eventsCount={derivedStats.events} />
+      <ProductShowcase />
       <SocialMixers cities={cities} />
       <EventsStrip />
       <TrustMarquee />
